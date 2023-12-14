@@ -27,6 +27,42 @@ const isUniqueCharactersPrimitive = (str) => {
 }
 
 /**
+ * Keep track of seen characters without using Bit Vector, fail when a repeated character is found.
+ * This approach assumes all characters are lowercase and maximum of 26 types of
+ * alphabets used and no other symbol or digits or uppercase characters
+ * used. As 32 bits can be used to store 26 bits
+ * representing each english alphabet.
+ *
+ * Time: O(N^2)
+ * Space: O(1)
+ *
+ * @param  {string} str   String to check, passed in as a character array
+ * @return {boolean}      True if unique characters, otherwise false
+ */
+const isUniqueCharactersBitVector = (str) => {
+  if (!str || (typeof str != "string")) {
+    return false;
+  }
+
+  let checker = 0;
+  for(let i = 0; i < str.length; i++) {
+    const val = str.charCodeAt(i) - "a".charCodeAt(0);
+
+    // Basically, shifts 1 by amount of difference
+    // between a and current character,
+    // acts like hashmap
+    if (checker & (1 << val)) {
+      return false;
+    }
+
+    checker |= (1 << val)
+  }
+
+  return true;
+}
+
+
+/**
  * Keep track of seen characters with Set data structure, fail when
  * a repeated character is found.
  *
@@ -78,6 +114,7 @@ const isUniqueCharactersSort = (str) => {
 
 module.exports = {
   isUniqueCharactersPrimitive,
+  isUniqueCharactersBitVector,
   isUniqueCharactersSet,
   isUniqueCharactersSort
 }
