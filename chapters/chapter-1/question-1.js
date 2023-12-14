@@ -33,7 +33,7 @@ const isUniqueCharactersPrimitive = (str) => {
  * used. As 32 bits can be used to store 26 bits
  * representing each english alphabet.
  *
- * Time: O(N^2)
+ * Time: O(N)
  * Space: O(1)
  *
  * @param  {string} str   String to check, passed in as a character array
@@ -45,7 +45,7 @@ const isUniqueCharactersBitVector = (str) => {
   }
 
   let checker = 0;
-  for(let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     const val = str.charCodeAt(i) - "a".charCodeAt(0);
 
     // Basically, shifts 1 by amount of difference
@@ -78,7 +78,7 @@ const isUniqueCharactersSet = (str) => {
   }
 
   const charSet = new Set();
-  for(let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     if (charSet.has(str[i].toLowerCase())) return false;
     charSet.add(str[i].toLowerCase())
   }
@@ -103,7 +103,7 @@ const isUniqueCharactersSort = (str) => {
 
   str = str.toLowerCase().split("").sort().join("")
 
-  for(let i = 0; i < str.length - 1; i++) {
+  for (let i = 0; i < str.length - 1; i++) {
     if (str[i] === str[i+1]) {
       return false;
     }
